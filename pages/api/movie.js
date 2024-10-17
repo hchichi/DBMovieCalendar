@@ -4,13 +4,19 @@ import movies from '../../data/movies.json';
 export default function handler(req, res) {
     const today = new Date().toISOString().slice(0, 10); // 获取当前日期 YYYY-MM-DD
 
-    // 处理每个电影对象，提取 originalTitle 和 date，并生成 datecomment
+    // 处理每个电影对象，提取 chineseTitle、originalTitle 和 date，并生成 datecomment
     const processedMovies = movies.map(movie => {
-        // 提取 originalTitle（假设 originalTitle 是 title 中英文之间的部分）
+        // 提取 chineseTitle 和 originalTitle
         const titleParts = movie.title.split(' ');
+        let chineseTitle = '';
         let originalTitle = '';
+
         if (titleParts.length > 1) {
+            chineseTitle = titleParts[0].trim();
             originalTitle = titleParts.slice(1).join(' ').trim();
+        } else {
+            chineseTitle = movie.title.trim();
+            originalTitle = '';
         }
 
         // 提取 date 和 mainComment（从 comment 中提取 YYYY-MM-DD）
@@ -23,6 +29,7 @@ export default function handler(req, res) {
 
         return {
             ...movie,
+            chineseTitle,
             originalTitle,
             date,
             comment: mainComment,
