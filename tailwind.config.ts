@@ -15,6 +15,7 @@ const config: Config = {
       },
       fontFamily: {
         quingke: ['ZCOOL QingKe HuangYou', 'cursive'],
+        righteous: ['var(--font-righteous)', 'sans-serif'],
       },
     },
   },

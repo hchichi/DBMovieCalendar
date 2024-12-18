@@ -89,7 +89,7 @@ export default function Home() {
                   
                   {/* 评分显示 */}
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="font-['Righteous'] text-4xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 text-transparent bg-clip-text">
+                    <div className="font-righteous text-4xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 text-transparent bg-clip-text">
                       {selectedMovie.rating.value}
                     </div>
                     {selectedMovie.comment && (
