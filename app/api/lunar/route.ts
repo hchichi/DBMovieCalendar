@@ -84,7 +84,7 @@ ${lunar.getGong()}方${lunar.getShou()}
           shengXiao: lunar.getDayShengXiao(),
           naYin: lunar.getDayNaYin(),
         },
-        time: {
+        timeZhi: {
           chinese: lunar.getTimeZhi(),
           shengXiao: lunar.getTimeShengXiao(),
           naYin: lunar.getTimeNaYin(),
@@ -138,7 +138,7 @@ ${lunar.getGong()}方${lunar.getShou()}
         // 凶煞方位
         xiongSha: lunar.getDayXiongSha(),
         // 时辰吉凶
-        time: {
+        timeYiJi: {
           yi: lunar.getTimeYi(),
           ji: lunar.getTimeJi(),
         },

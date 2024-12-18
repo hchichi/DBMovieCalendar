@@ -93,7 +93,7 @@ export default function Home() {
                       {selectedMovie.rating.value}
                     </div>
                     {selectedMovie.comment && (
-                      <div className="text-lg text-gray-300 italic">"{selectedMovie.comment}"</div>
+                      <div className="text-lg text-gray-300 italic">&ldquo;{selectedMovie.comment}&rdquo;</div>
                     )}
                   </div>
 
