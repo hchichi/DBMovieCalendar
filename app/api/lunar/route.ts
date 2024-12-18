@@ -35,25 +35,26 @@ export async function GET(request: NextRequest) {
     const nextJieQi = lunar.getNextJieQi();
     
     const result = {
-      // 完整字符串
-      fullString: `${solar.toYmdHms()} ${solar.getWeekInChinese()} ${solar.getXingZuo()}座
-${lunar.getYearInChinese()}年${lunar.getMonthInChinese()}月${lunar.getDayInChinese()} 
+      // 完整的历书格式信息
+      almanac: `${solar.toYmdHms()} ${solar.getWeekInChinese()} ${solar.getXingZuo()}座
+${lunar.toString()} 
 ${lunar.getYearInGanZhi()}(${lunar.getYearShengXiao()})年 
 ${lunar.getMonthInGanZhi()}(${lunar.getMonthShengXiao()})月 
 ${lunar.getDayInGanZhi()}(${lunar.getDayShengXiao()})日 
 ${lunar.getTimeZhi()}(${lunar.getTimeShengXiao()})时 
 纳音[${lunar.getYearNaYin()} ${lunar.getMonthNaYin()} ${lunar.getDayNaYin()} ${lunar.getTimeNaYin()}] 
-${solar.getWeekInChinese()} 
-${lunar.getShou()}
-星宿[${lunar.getXiu()}${lunar.getAnimal()}](${lunar.getXiuLuck()}) 
-彭祖百忌[${lunar.getPengZuGan()} ${lunar.getPengZuZhi()}] 
-喜神方位[${lunar.getDayPositionXi()}] 
-阳贵神方位[${lunar.getDayPositionYangGui()}] 
-阴贵神方位[${lunar.getDayPositionYinGui()}] 
-福神方位[${lunar.getDayPositionFu()}] 
-财神方位[${lunar.getDayPositionCai()}] 
-冲[${lunar.getDayChongDesc()}] 
-煞[${lunar.getDayPositionTaiSui()}]${holidayInfo.length > 0 ? '\n节假日：' + holidayInfo.map(h => h.name + (h.isWork ? '(调休)' : '')).join('，') : ''}${currentJieQi ? '\n当前节气：' + currentJieQi.getName() : ''}${nextJieQi ? '\n下一节气：' + nextJieQi.getName() : ''}`,
+星期${lunar.getWeekInChinese()}
+${lunar.getFestivals().map(f => `(${f})`).join(' ')}${lunar.getOtherFestivals().map(f => `(${f})`).join(' ')}
+${lunar.getGong()}方${lunar.getShou()}
+星宿[${lunar.getXiu()}${lunar.getZheng()}${lunar.getAnimal()}](${lunar.getXiuLuck()})
+彭祖百忌[${lunar.getPengZuGan()} ${lunar.getPengZuZhi()}]
+喜神方位[${lunar.getDayPositionXi()}](${lunar.getDayPositionXiDesc()})
+阳贵神方位[${lunar.getDayPositionYangGui()}](${lunar.getDayPositionYangGuiDesc()})
+阴贵神方位[${lunar.getDayPositionYinGui()}](${lunar.getDayPositionYinGuiDesc()})
+福神方位[${lunar.getDayPositionFu()}](${lunar.getDayPositionFuDesc()})
+财神方位[${lunar.getDayPositionCai()}](${lunar.getDayPositionCaiDesc()})
+冲[${lunar.getDayChongDesc()}]
+煞[${lunar.getDaySha()}]${holidayInfo.length > 0 ? '\n节假日：' + holidayInfo.map(h => h.name + (h.isWork ? '(调休)' : '')).join('，') : ''}${currentJieQi ? '\n当前节气：' + currentJieQi.getName() : ''}${nextJieQi ? '\n下一节气：' + nextJieQi.getName() : ''}`,
 
       // 分项数据
       solar: {
