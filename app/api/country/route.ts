@@ -119,6 +119,8 @@ function searchCountries(countries: any[], query: any) {
     return results;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
     try {
         const countries = await loadCountries();

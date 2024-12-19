@@ -62,6 +62,9 @@ async function updateAllMovies() {
             pubdate: data.pubdate || null,
             year: data.year || null,
             is_tv: data.is_tv || false,
+            card_subtitle: data.card_subtitle || null,
+            actors: data.actors?.map(actor => actor.name) || [],
+            directors: data.directors?.map(director => director.name) || [],
           });
         } catch (error) {
           console.error(`Failed to fetch movie data for ID: ${id}, trying TV endpoint...`);
@@ -90,6 +93,9 @@ async function updateAllMovies() {
               pubdate: tvData.pubdate || null,
               year: tvData.year || null,
               is_tv: tvData.is_tv || false,
+              card_subtitle: tvData.card_subtitle || null,
+              actors: tvData.actors?.map(actor => actor.name) || [],
+              directors: tvData.directors?.map(director => director.name) || [],
             });
           } catch (tvError) {
             console.error(`Failed to fetch data for ID: ${id} from both endpoints.`);

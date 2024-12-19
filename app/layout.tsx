@@ -3,12 +3,17 @@ import { Inter } from 'next/font/google';
 import { Righteous } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ 
+  subsets: ['latin'], 
+  variable: '--font-inter',
+  display: 'swap',
+});
+
 const righteous = Righteous({
   weight: '400',
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-righteous',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -22,12 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" className={righteous.variable}>
+    <html lang="zh-CN" className={`${inter.variable} ${righteous.variable}`}>
       <head>
         <title>电影日历</title>
         <meta name="description" content="每日电影推荐" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body>{children}</body>
+      <body className="bg-gray-900">{children}</body>
     </html>
   );
 }

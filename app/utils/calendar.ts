@@ -34,7 +34,11 @@ export class Calendar {
     "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"
   ];
 
-  private readonly festivals = {
+  // 定义节日类型
+  private readonly festivals: {
+    solar: { [key: string]: string[] };
+    lunar: { [key: string]: string[] };
+  } = {
     solar: {
       "01-01": ["元旦"],
       "02-14": ["情人节"],
@@ -230,11 +234,14 @@ export class Calendar {
     const solarKey = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     const lunarKey = `${lunarMonth.toString().padStart(2, '0')}-${lunarDay.toString().padStart(2, '0')}`;
 
-    if (this.festivals.solar[solarKey]) {
-      festivals.push(...this.festivals.solar[solarKey]);
+    const solarFestivals = this.festivals.solar[solarKey];
+    const lunarFestivals = this.festivals.lunar[lunarKey];
+
+    if (solarFestivals) {
+      festivals.push(...solarFestivals);
     }
-    if (this.festivals.lunar[lunarKey]) {
-      festivals.push(...this.festivals.lunar[lunarKey]);
+    if (lunarFestivals) {
+      festivals.push(...lunarFestivals);
     }
 
     return festivals;
