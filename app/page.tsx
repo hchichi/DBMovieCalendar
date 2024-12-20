@@ -35,7 +35,25 @@ export default function Home() {
   useEffect(() => {
     const fetchInitialMovie = async () => {
       try {
-        const response = await fetch('/api/movies');
+        // 获取当前日期
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
+        
+        // 先尝试获取当天的电影
+        let response = await fetch(`/api/movie/${dateStr}`);
+        if (response.ok) {
+          const movie = await response.json();
+          if (movie) {
+            setSelectedMovie(movie);
+            return;
+          }
+        }
+        
+        // 如果当天没有电影，获取所有电影列表
+        response = await fetch('/api/movies');
         if (response.ok) {
           const movies = await response.json();
           if (movies && movies.length > 0) {
