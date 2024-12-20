@@ -91,11 +91,12 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="relative h-[600px] group">
                 <Image
-                  src={selectedMovie.pic.large}
+                  src={`/api/image?url=${encodeURIComponent(selectedMovie.pic.large)}`}
                   alt={selectedMovie.title}
                   fill
                   className="object-cover rounded-lg shadow-2xl"
                   priority
+                  unoptimized
                 />
               </div>
               <div className="flex flex-col justify-start space-y-6">
