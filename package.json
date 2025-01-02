@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
     "@vercel/analytics": "^1.4.1",
@@ -18,7 +19,8 @@
     "lru-cache": "^10.0.0",
     "next": "^14.2.20",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

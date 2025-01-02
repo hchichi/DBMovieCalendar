@@ -30,12 +30,22 @@ export async function GET(request: NextRequest) {
     const day = String(today.getDate()).padStart(2, '0');
     const todayStr = `${year}-${month}-${day}`;
 
-    const movies = await loadMovies(year);
-    if (!movies) {
-      return NextResponse.json({ error: 'Failed to load movies data' }, { status: 500 });
+    // 先尝试加载当前年份的数据
+    let movies = await loadMovies(year);
+    let movie = movies?.find((m: any) => m.calendar === todayStr);
+
+    // 如果当前年份没有找到电影数据，尝试加载下一年的数据
+    if (!movie && month === '12') {
+      const nextYear = (parseInt(year) + 1).toString();
+      const nextYearMovies = await loadMovies(nextYear);
+      if (nextYearMovies) {
+        movie = nextYearMovies.find((m: any) => m.calendar === todayStr);
+      }
     }
 
-    const movie = movies.find((m: any) => m.calendar === todayStr);
+    if (!movies && !movie) {
+      return NextResponse.json({ error: 'Failed to load movies data' }, { status: 500 });
+    }
 
     if (!movie) {
       return NextResponse.json({ error: 'Movie not found for today' }, { status: 404 });
