@@ -1,4 +1,32 @@
 // 农历转换工具类
+export interface LunarDate {
+  lYear: number;
+  lMonth: number;
+  lDay: number;
+  animal: string;
+  monthCn: string;
+  dayCn: string;
+  cYear: number;
+  cMonth: number;
+  cDay: number;
+  gzYear: string;
+  gzMonth: string;
+  gzDay: string;
+  isToday: boolean;
+  isLeap: boolean;
+  nWeek: number;
+  ncWeek: string;
+  isTerm: boolean;
+  term: string;
+  astro: string;
+  lMonthZH: string;
+  lDayZH: string;
+  gzYearZH: string;
+  gzMonthZH: string;
+  gzDayZH: string;
+  festival?: string;
+}
+
 export class Calendar {
   private static readonly lunarInfo = [
     0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
@@ -111,7 +139,7 @@ export class Calendar {
   }
 
   // 公历转农历
-  public static solar2lunar(year: number, month: number, day: number) {
+  public static solar2lunar(year: number, month: number, day: number): LunarDate | null {
     // 参数区间1900.1.31~2100.12.31
     if (year < 1900 || year > 2100) {
       return null;
@@ -203,14 +231,27 @@ export class Calendar {
       lMonth: lunarMonth,
       lDay: lunarDay,
       animal: animal,
+      monthCn: this.lunarMonthZH[lunarMonth - 1] + "月",
+      dayCn: this.lunarDayZH[lunarDay - 1],
+      cYear: year,
+      cMonth: month,
+      cDay: day,
+      gzYear: gzYear,
+      gzMonth: gzMonth,
+      gzDay: gzDay,
+      isToday: false,  // 这个值需要在使用时计算
+      isLeap: isLeap,
+      nWeek: new Date(year, month - 1, day).getDay(),
+      ncWeek: "星期" + "日一二三四五六"[new Date(year, month - 1, day).getDay()],
+      isTerm: !!termStr,
+      term: termStr,
+      astro: "",  // 可以后续添加星座计算
       lMonthZH: (isLeap ? "闰" : "") + this.lunarMonthZH[lunarMonth - 1] + "月",
       lDayZH: this.lunarDayZH[lunarDay - 1],
       gzYearZH: gzYear,
       gzMonthZH: gzMonth,
       gzDayZH: gzDay,
-      festival: festivals.join(" "),
-      term: termStr,
-      isLeap: isLeap
+      festival: festivals.join(" ")
     };
   }
 

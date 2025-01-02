@@ -34,6 +34,7 @@ interface Movie {
     total: string;
     rank: number;
   };
+  card_subtitle?: string;
 }
 
 export default function Home() {

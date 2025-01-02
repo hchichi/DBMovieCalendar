@@ -39,6 +39,7 @@ interface Movie {
     total: string;
     rank: number;
   };
+  card_subtitle?: string;
 }
 
 interface MovieCarouselProps {
@@ -158,7 +159,7 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7m7-7H3" />
                       </svg>
                     </button>
                   </div>
@@ -205,7 +206,12 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({
 
                 {/* 国家 */}
                 {(() => {
-                  const [country] = (selectedMovie.card_subtitle || '').split(' / ').slice(1, 2);
+                  const cardSubtitle = selectedMovie.card_subtitle;
+                  if (!cardSubtitle) return null;
+                  
+                  const parts = cardSubtitle.split(' / ');
+                  const country = parts.length > 1 ? parts[1] : null;
+                  
                   if (country) {
                     return (
                       <>
