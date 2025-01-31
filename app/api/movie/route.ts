@@ -2,20 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-// 缓存电影数据
-let moviesCache: { [key: string]: any[] } = {};
+// 获取东八区的当前时间
+function getChinaDate() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  return new Date(utc + 3600000 * 8);
+}
 
 // 加载电影数据
 async function loadMovies(year: string) {
-  if (moviesCache[year]) {
-    return moviesCache[year];
-  }
-
   try {
     const filePath = path.join(process.cwd(), 'data', 'movies', `cal${year}.json`);
     const data = await fs.readFile(filePath, 'utf-8');
-    moviesCache[year] = JSON.parse(data);
-    return moviesCache[year];
+    return JSON.parse(data);
   } catch (error) {
     console.error(`Error loading movies data for year ${year}:`, error);
     return null;
@@ -24,7 +23,7 @@ async function loadMovies(year: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const today = new Date();
+    const today = getChinaDate();
     const year = today.getFullYear().toString();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
